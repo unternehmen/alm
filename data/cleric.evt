@@ -1,0 +1,17 @@
+[Alm Event]
+[Splash "church.png"
+  [Music "church.mp3"
+    [Say "Father Dirth"
+      "Welcome, children."
+      "Our order practiceth medicine and giveth sermons."
+      "Needest thou something?"]
+    [Choice
+      "Please heal us, Father."
+      [Begin
+        [HealParty]
+        [Say "Father Dirth"
+          "I have mended your wounds."
+          "Go forth, and be righteous."]
+        [End]]
+      "Nevermind."
+      [End]]]]

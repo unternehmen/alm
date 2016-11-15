@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane id="BorderPane"
+    prefHeight="400.0" prefWidth="600.0"
+    styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="alm.MainController">
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+
+    <top>
+        <HBox spacing="6">
+            <padding>
+                <Insets top="6" bottom="6" left="6" right="6" />
+            </padding>
+            <children>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Quit" />
+            </children>
+        </HBox>
+    </top>
+    
+    <center>
+        <Label text="World View" />
+    </center>
+    
+    <right>
+        <GridPane vgap="6">
+            <padding>
+                <Insets top="6" left="6" bottom="6" right="6" />
+            </padding>
+            
+            <Label GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" text="Grunthar" />
+            <Label GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" text="Azzash" />
+            <Label GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" text="Snide" />
+            <Label GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" text="Harold" />
+        </GridPane>
+    </right>
+</BorderPane>
