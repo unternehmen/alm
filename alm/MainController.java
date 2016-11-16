@@ -36,20 +36,16 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleForward() {
-        if (!game.goForward ()) {
-            System.out.println ("Bump!");
-        }
+        game.goForward ();
     }
 
     @FXML
     private void handleLeft() {
-        System.out.println ("Left");
         game.turnLeft ();
     }
 
     @FXML
     private void handleRight() {
-        System.out.println ("Right");
         game.turnRight ();
     }
 

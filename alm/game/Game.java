@@ -142,7 +142,6 @@ public class Game {
                 direction.set(Position.NORTH);
                 break;
         }
-        System.out.println ("Direction now " + direction.get ());
     }
     
     /**
@@ -163,7 +162,6 @@ public class Game {
                 direction.set(Position.SOUTH);
                 break;
         }
-        System.out.println ("Direction now " + direction.get ());
     }
 
     public boolean isWithinBounds (int x, int y) {

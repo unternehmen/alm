@@ -5,3 +5,5 @@
 .mainFxmlClass {
 
 }
+
+#worldView { -fx-background-color: linear-gradient(red, black 50%) }
