@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
+<?import alm.gui.WorldView?>
 
 <BorderPane id="BorderPane"
     prefHeight="400.0" prefWidth="600.0"
@@ -24,13 +25,13 @@
             </padding>
             <children>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button text="Quit" />
+                <Button text="Quit" onAction="#handleQuit" />
             </children>
         </HBox>
     </top>
     
     <center>
-        <Label text="World View" />
+        <WorldView fx:id="worldView" />
     </center>
     
     <right>
@@ -43,6 +44,14 @@
             <Label GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" text="Azzash" />
             <Label GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" text="Snide" />
             <Label GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" text="Harold" />
+            <GridPane vgap="6" hgap="6" GridPane.rowIndex="4">
+                <Button GridPane.rowIndex="0" GridPane.columnIndex="1"
+                        text="Forth" onAction="#handleForward" />
+                <Button GridPane.rowIndex="1" GridPane.columnIndex="0"
+                        text="Left" onAction="#handleLeft" />
+                <Button GridPane.rowIndex="1" GridPane.columnIndex="2"
+                        text="Right" onAction="#handleRight" />
+            </GridPane>
         </GridPane>
     </right>
 </BorderPane>

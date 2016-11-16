@@ -7,11 +7,16 @@ package alm;
 
 import alm.world.Map;
 import alm.world.MapLoader;
+import alm.gui.WorldView;
+import alm.game.Game;
+import alm.game.Position;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
 
 /**
  * FXML Controller class
@@ -19,6 +24,34 @@ import javafx.fxml.Initializable;
  * @author murphy249
  */
 public class MainController implements Initializable {
+    private Game game;
+
+    @FXML
+    private WorldView worldView;
+
+    @FXML
+    private void handleQuit() {
+        Platform.exit();
+    }
+
+    @FXML
+    private void handleForward() {
+        if (!game.goForward ()) {
+            System.out.println ("Bump!");
+        }
+    }
+
+    @FXML
+    private void handleLeft() {
+        System.out.println ("Left");
+        game.turnLeft ();
+    }
+
+    @FXML
+    private void handleRight() {
+        System.out.println ("Right");
+        game.turnRight ();
+    }
 
     /**
      * Initializes the controller class.
@@ -28,7 +61,7 @@ public class MainController implements Initializable {
         Map map;
 
         try {
-            map = MapLoader.load("C:\\\\Users\\murphy249\\Downloads\\alm\\alm\\data\\town.map");
+            map = MapLoader.load("data/town.map");
 
             if (map == null) {
                 System.out.println("Map weren't loaded!!!");
@@ -37,6 +70,10 @@ public class MainController implements Initializable {
             } else {
                 System.out.println("Is NOT solid.");
             }
+
+            game = new Game (map, 1, 2, Position.EAST);
+
+            worldView.setGame (game);
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (IOException e) {
