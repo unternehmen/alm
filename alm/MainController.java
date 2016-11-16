@@ -59,14 +59,6 @@ public class MainController implements Initializable {
         try {
             map = MapLoader.load("data/town.map");
 
-            if (map == null) {
-                System.out.println("Map weren't loaded!!!");
-            } else if (map.getTileAt(0, 0).isSolid()) {
-                System.out.println("Is solid.");
-            } else {
-                System.out.println("Is NOT solid.");
-            }
-
             game = new Game (map, 1, 2, Position.EAST);
 
             worldView.setGame (game);
@@ -76,5 +68,4 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }    
-    
 }
