@@ -57,7 +57,9 @@ public class MainController implements Initializable {
         Map map;
 
         try {
-            map = MapLoader.load("data/town.map");
+            map = MapLoader.load(getClass()
+                                   .getClassLoader ()
+                                   .getResource ("data/town.map"));
 
             game = new Game (map, 1, 2, Position.EAST);
 

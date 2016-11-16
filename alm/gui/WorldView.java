@@ -54,8 +54,8 @@ public class WorldView extends StackPane {
             ((PhongMaterial)grassMat)
               .setDiffuseMap (
                 new Image (
-                  getClass ()
-                    .getResource ("../../data/grass_big.png")
+                  getClass ().getClassLoader ()
+                    .getResource ("data/grass_big.png")
                     .toExternalForm ()));
         }
 
@@ -64,8 +64,8 @@ public class WorldView extends StackPane {
             ((PhongMaterial)wallMat)
               .setDiffuseMap (
                 new Image (
-                  getClass ()
-                    .getResource ("../../data/wall_big.png")
+                  getClass ().getClassLoader ()
+                    .getResource ("data/wall_big.png")
                     .toExternalForm ()));
         }
 
@@ -74,8 +74,8 @@ public class WorldView extends StackPane {
             ((PhongMaterial)doorMat)
               .setDiffuseMap (
                 new Image (
-                  getClass ()
-                    .getResource ("../../data/door_big.png")
+                  getClass ().getClassLoader ()
+                    .getResource ("data/door_big.png")
                     .toExternalForm ()));
         }
 
@@ -84,8 +84,8 @@ public class WorldView extends StackPane {
             ((PhongMaterial)floorMat)
               .setDiffuseMap (
                 new Image (
-                  getClass ()
-                    .getResource ("../../data/floor_big.png")
+                  getClass ().getClassLoader ()
+                    .getResource ("data/floor_big.png")
                     .toExternalForm ()));
         }
 
@@ -111,8 +111,8 @@ public class WorldView extends StackPane {
         skyboxView = new ImageView ();
         skyboxView.setImage (
           new Image (
-            getClass ()
-              .getResource ("../../data/sky.png")
+            getClass ().getClassLoader ()
+              .getResource ("data/sky.png")
               .toExternalForm ()));
         Rectangle2D r = new Rectangle2D (0, 0, 400, 400);
         skyboxView.setViewport (r);

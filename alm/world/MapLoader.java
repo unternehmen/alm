@@ -2,8 +2,7 @@ package alm.world;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.FileSystems;
+import java.net.URL;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.util.StringTokenizer;
@@ -11,36 +10,29 @@ import java.util.StringTokenizer;
 public class MapLoader {
     // public MapLoader () { }
 
-    public static Map load (String path) throws ParseException, IOException {
+    public static Map load (URL url) throws ParseException, IOException {
         Scanner scanner;
         String line;
         int width = -1, height = -1;
         Map map;
 
-        if (path == null)
+        if (url == null)
             throw new IllegalArgumentException ("path == null");
-
-        if (path.isEmpty ())
-            throw new IllegalArgumentException ("path == \"\"");
-
 
         BufferedInputStream in =
           new BufferedInputStream (
-            Files.newInputStream (
-              FileSystems
-                .getDefault ()
-                .getPath (path)));
+            url.openStream ());
 
         scanner = new Scanner (in);
 
         if (!scanner.hasNextLine())
-            throw new ParseException ("Premature end in " + path, 0);
+            throw new ParseException ("Premature end in " + url, 0);
             
         if (!scanner.nextLine ().equals("[Alm Map]"))
-            throw new ParseException ("No header in " + path, 0);
+            throw new ParseException ("No header in " + url, 0);
 
         if (!scanner.hasNextLine())
-            throw new ParseException ("Premature end in " + path, 0);
+            throw new ParseException ("Premature end in " + url, 0);
             
         line = scanner.nextLine ();
         while (!line.equals ("%")) { 
@@ -93,7 +85,7 @@ public class MapLoader {
             }
                 
             if (!scanner.hasNextLine())
-                throw new ParseException ("Premature end in " + path, 0);
+                throw new ParseException ("Premature end in " + url, 0);
                 
             line = scanner.nextLine ();
         }
