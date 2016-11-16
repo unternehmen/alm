@@ -1,23 +1,27 @@
 package alm.gui;
 
 import alm.game.Game;
+import alm.game.Position;
 import alm.world.Map;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Box;
 import javafx.scene.AmbientLight;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.Color;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.binding.ObjectBinding;
 
-public class WorldView extends Pane {
+public class WorldView extends StackPane {
     private Game game;
     private SubScene subScene;
     private Group solidsGroup;
@@ -37,6 +41,7 @@ public class WorldView extends Pane {
     private static Material wallMat = null;
     private static Material doorMat = null;
     private static Material floorMat = null;
+    private ImageView skyboxView;
 
     public WorldView() {
         super();
@@ -102,19 +107,32 @@ public class WorldView extends Pane {
         light.setColor (Color.WHITE);
         solidsGroup.getChildren ().add (light);
 
+        /* Make the backdrop. */
+        skyboxView = new ImageView ();
+        skyboxView.setImage (
+          new Image (
+            getClass ()
+              .getResource ("../../data/sky.png")
+              .toExternalForm ()));
+        Rectangle2D r = new Rectangle2D (0, 0, 400, 400);
+        skyboxView.setViewport (r);
+        skyboxView.fitWidthProperty ().bind (widthProperty ());
+        skyboxView.fitHeightProperty ().bind (heightProperty ());
+
         /* Finally, put the SubScene into this WorldView. */
-        getChildren().add (subScene);
+        getChildren().addAll (skyboxView, subScene);
     }
 
     public void setGame (Game game) {
         /* Remove old listeners if necessary. */
-        if (this.game != null)
+        if (this.game != null) {
             this
               .game
               .positionProperty ()
               .removeListener ((obs, old, neu) -> {
                 updateMeshes ();
               });
+        }
 
         /* Set the game. */
         this.game = game;
@@ -125,6 +143,28 @@ public class WorldView extends Pane {
           .addListener ((obs, old, neu) -> {
             updateMeshes ();
           });
+
+        game.directionProperty ().addListener ((obs, old, neu) -> {
+            int xoff;
+
+            switch (neu.intValue ()) {
+            case Position.EAST:
+                xoff = 400;
+                break;
+            case Position.WEST:
+                xoff = 800;
+                break;
+            case Position.NORTH:
+                xoff = 1200;
+                break;
+            default:
+                xoff = 0;
+                break;
+            }
+
+            Rectangle2D r = new Rectangle2D (xoff, 0, 400, 400);
+            skyboxView.setViewport (r);
+        });
 
         /* Update the meshes now so we have a view of the world. */
         updateMeshes ();

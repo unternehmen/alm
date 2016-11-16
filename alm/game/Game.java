@@ -169,4 +169,8 @@ public class Game {
     }
 
     public ObjectBinding positionProperty () { return position; }
+
+    public IntegerProperty directionProperty () { return direction; }
+
+    public int getDirection () { return direction.get (); }
 }
