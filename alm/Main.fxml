@@ -40,10 +40,34 @@
                 <Insets top="6" left="6" bottom="6" right="6" />
             </padding>
             
-            <Label GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" text="Grunthar" />
-            <Label GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" text="Azzash" />
+            <VBox GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+                <Label text="Grunthar" style="-fx-font-weight: bold" />
+                <HBox spacing="6">
+                    <ImageView>
+                        <image>
+                            <Image url="@/data/fighter.png" />
+                        </image>
+                    </ImageView>
+                    <Label text="HP: 10" />
+                </HBox>
+            </VBox>
+            <VBox GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                <Label text="Azzash" style="-fx-font-weight: bold" />
+                <HBox spacing="6">
+                    <ImageView>
+                        <image>
+                            <Image url="@/data/wizard.png" />
+                        </image>
+                    </ImageView>
+                    <Label text="HP: 6" />
+                </HBox>
+            </VBox>
+            
+            <!-- Other character slots
             <Label GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" text="Snide" />
             <Label GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" text="Harold" />
+            -->
+            
             <GridPane vgap="6" hgap="6" GridPane.rowIndex="4">
                 <Button GridPane.rowIndex="0" GridPane.columnIndex="1"
                         text="Forth" onAction="#handleForward" />
