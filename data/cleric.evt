@@ -1,6 +1,7 @@
 [Alm Event]
-[Splash "church.png"
-  [Music "church.mp3"
+[Begin
+  [With [Splash "church.png"
+         Music  "church.mp3"]
     [Say "Father Dirth"
       "Welcome, children."
       "Our order practiceth medicine and giveth sermons."
