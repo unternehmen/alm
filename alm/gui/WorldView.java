@@ -36,6 +36,7 @@ public class WorldView extends Pane {
     private static Material grassMat = null;
     private static Material wallMat = null;
     private static Material doorMat = null;
+    private static Material floorMat = null;
 
     public WorldView() {
         super();
@@ -49,7 +50,7 @@ public class WorldView extends Pane {
               .setDiffuseMap (
                 new Image (
                   getClass ()
-                    .getResource ("../../data/grass.png")
+                    .getResource ("../../data/grass_big.png")
                     .toExternalForm ()));
         }
 
@@ -59,7 +60,7 @@ public class WorldView extends Pane {
               .setDiffuseMap (
                 new Image (
                   getClass ()
-                    .getResource ("../../data/wall.png")
+                    .getResource ("../../data/wall_big.png")
                     .toExternalForm ()));
         }
 
@@ -69,16 +70,25 @@ public class WorldView extends Pane {
               .setDiffuseMap (
                 new Image (
                   getClass ()
-                    .getResource ("../../data/door.png")
+                    .getResource ("../../data/door_big.png")
+                    .toExternalForm ()));
+        }
+
+        if (floorMat == null) {
+            floorMat = new PhongMaterial ();
+            ((PhongMaterial)floorMat)
+              .setDiffuseMap (
+                new Image (
+                  getClass ()
+                    .getResource ("../../data/floor_big.png")
                     .toExternalForm ()));
         }
 
         /* Initialize our Group which will hold all visible meshes. */
         solidsGroup = new Group ();
 
-        /* Initialize the SubScene we will use for 3D.
-         * Also, disable anti-aliasing so the textures are sharp. */
-        subScene = new SubScene ((Parent)solidsGroup, 0, 0, true, SceneAntialiasing.DISABLED);
+        /* Initialize the SubScene we will use for 3D. */
+        subScene = new SubScene ((Parent)solidsGroup, 0, 0, true, null);
         subScene.widthProperty().bind(widthProperty());
         subScene.heightProperty().bind(heightProperty());
 
@@ -138,7 +148,7 @@ public class WorldView extends Pane {
 
                 if (game.getIconAt (ds, df) == '.') {
                     box.setTranslateY (3);
-                    box.setMaterial (whiteMat);
+                    box.setMaterial (floorMat);
                 } else if (game.getIconAt (ds, df) == '#') {
                     box.setTranslateY (1);
                     box.setMaterial (wallMat);
