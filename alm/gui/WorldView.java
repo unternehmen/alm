@@ -42,6 +42,7 @@ public class WorldView extends StackPane {
     private static Material doorMat = null;
     private static Material floorMat = null;
     private ImageView skyboxView;
+    private ImageView overlay;
 
     public WorldView() {
         super();
@@ -118,9 +119,28 @@ public class WorldView extends StackPane {
         skyboxView.setViewport (r);
         skyboxView.fitWidthProperty ().bind (widthProperty ());
         skyboxView.fitHeightProperty ().bind (heightProperty ());
+        
+        /* Make the overlay for being in buildings. */
+        overlay = new ImageView ();
+        overlay.fitWidthProperty ().bind (widthProperty ());
+        overlay.fitHeightProperty ().bind (heightProperty ());
 
         /* Finally, put the SubScene into this WorldView. */
-        getChildren().addAll (skyboxView, subScene);
+        getChildren().addAll (skyboxView, subScene, overlay);
+    }
+    
+    public void startOverlay (String name) {
+        if (name.equals ("tavern")) {
+            overlay.setImage (
+              new Image (
+                getClass ().getClassLoader ()
+                  .getResource ("data/tavern.png")
+                  .toExternalForm ()));
+        }
+    }
+    
+    public void stopOverlay () {
+        overlay.setImage (null);
     }
 
     public void setGame (Game game) {
@@ -132,10 +152,20 @@ public class WorldView extends StackPane {
               .removeListener ((obs, old, neu) -> {
                 updateMeshes ();
               });
+            
+            game.overlayNameProperty ().removeListener ((obs, old, neu) -> {
+                if (neu.isEmpty ()) stopOverlay ();
+                else startOverlay (neu);
+            });
         }
 
         /* Set the game. */
         this.game = game;
+        
+        game.overlayNameProperty ().addListener ((obs, old, neu) -> {
+            if (neu.isEmpty ()) stopOverlay ();
+            else startOverlay (neu);
+        });
 
         /* Update the meshes whenever the player moves. */
         game

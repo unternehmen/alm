@@ -4,6 +4,8 @@ import alm.world.Map;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * A Game manages the data of a running game, such as player position.
@@ -12,6 +14,7 @@ public class Game {
     private IntegerProperty x, y;
     private IntegerProperty direction;
     private ObjectBinding position;
+    private StringProperty overlayName;
     private Map map;
     
     /**
@@ -28,6 +31,7 @@ public class Game {
         this.x = new SimpleIntegerProperty(startX);
         this.y = new SimpleIntegerProperty(startY);
         this.direction = new SimpleIntegerProperty(startDir);
+        this.overlayName = new SimpleStringProperty("");
 
         position = new ObjectBinding() {
             {
@@ -115,7 +119,10 @@ public class Game {
                 break;
         }
         
-        if (!map.getTileAt(x.get() + dx, y.get() + dy).isSolid()) {
+        if (map.getTileAt(x.get() + dx, y.get() + dy).getIcon () == 'O') {
+            overlayName.set ("tavern");
+            return true;
+        } else if (!map.getTileAt(x.get() + dx, y.get() + dy).isSolid()) {
             x.set(x.get() + dx);
             y.set(y.get() + dy);
             return true;
@@ -173,4 +180,8 @@ public class Game {
     public IntegerProperty directionProperty () { return direction; }
 
     public int getDirection () { return direction.get (); }
+    
+    public StringProperty overlayNameProperty () { return overlayName; }
+
+    public String getOverlayName () { return overlayName.get (); }
 }
